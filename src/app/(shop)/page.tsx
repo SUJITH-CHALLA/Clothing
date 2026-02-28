@@ -81,9 +81,8 @@ export default function HomePage() {
                     </BlurIn>
 
                     {/* Main heading */}
-                    <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl lg:text-7xl">
+                    <h1 className="font-heading text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl flex flex-col sm:flex-row justify-center gap-x-4 items-center">
                         <TextReveal text="DEFINE YOUR" delay={0.4} />
-                        <br />
                         <span className="text-gradient-volt">
                             <TextReveal text="STREETWEAR" delay={0.8} />
                         </span>
@@ -92,8 +91,7 @@ export default function HomePage() {
                     {/* Sub heading */}
                     <BlurIn delay={1.2}>
                         <p className="mx-auto mt-6 max-w-lg text-base text-text-secondary md:text-lg">
-                            Limited drops. Premium quality. Fast fashion that respects the
-                            culture.
+                            Premium streetwear for the culture. Limited drops and exclusive collections that redefine your aesthetic.
                         </p>
                     </BlurIn>
 
@@ -102,7 +100,7 @@ export default function HomePage() {
                         <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                             <MagneticButton>
                                 <Link
-                                    href="/#drops"
+                                    href="/#collections"
                                     className="group flex items-center gap-2 rounded-full bg-volt px-8 py-3.5 text-sm font-semibold text-deep-black transition-all hover:bg-volt/90 hover:shadow-[0_0_30px_rgba(224,255,34,0.3)]"
                                 >
                                     Shop Now
@@ -112,7 +110,7 @@ export default function HomePage() {
 
                             <MagneticButton>
                                 <Link
-                                    href="/#collections"
+                                    href="/collections"
                                     className="flex items-center gap-2 rounded-full border border-white/10 px-8 py-3.5 text-sm font-medium text-text-primary transition-all hover:border-white/20 hover:bg-white/5"
                                 >
                                     View Collections
@@ -313,31 +311,12 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* ═══════ BRAND STRIP ═══════ */}
-            <section className="border-y border-white/5 py-16">
-                <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 px-6 md:flex-row">
-                    {[
-                        { value: "500+", label: "Products" },
-                        { value: "10K+", label: "Customers" },
-                        { value: "24H", label: "Delivery" },
-                        { value: "100%", label: "Authentic" },
-                    ].map((stat, i) => (
-                        <motion.div
-                            key={stat.label}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
-                            className="text-center"
-                        >
-                            <p className="font-heading text-3xl font-bold text-volt">
-                                {stat.value}
-                            </p>
-                            <p className="mt-1 text-xs uppercase tracking-[0.2em] text-text-secondary">
-                                {stat.label}
-                            </p>
-                        </motion.div>
-                    ))}
+            {/* ═══════ BRAND STRIP (Removed fake stats) ═══════ */}
+            <section className="border-y border-white/5 py-12">
+                <div className="mx-auto flex max-w-7xl items-center justify-center gap-8 px-6">
+                    <p className="text-sm font-medium tracking-[0.2em] text-text-secondary uppercase">
+                        Quality Above Everything
+                    </p>
                 </div>
             </section>
 
@@ -350,18 +329,18 @@ export default function HomePage() {
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            className="font-heading text-2xl font-bold md:text-3xl"
+                            className="font-heading text-2xl font-bold md:text-3xl text-volt"
                         >
-                            Stay in the Loop
+                            Get 10% Off Your First Order
                         </motion.h3>
                         <motion.p
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.1 }}
-                            className="mt-3 text-sm text-text-secondary"
+                            className="mt-3 text-sm text-text-secondary max-w-md mx-auto"
                         >
-                            Get early access to drops, exclusive deals, and style updates.
+                            Subscribe to our newsletter and get early access to exclusive drops, restocks, and a 10% discount sent straight to your inbox.
                         </motion.p>
                         <motion.form
                             initial={{ opacity: 0, y: 10 }}

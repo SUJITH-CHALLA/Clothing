@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Phone, ArrowRight, Loader2, Lock } from "lucide-react";
+import { Mail, Phone, ArrowRight, Loader2, Lock, Eye, EyeOff } from "lucide-react";
 import { BlurIn } from "@/components/premium/BlurIn";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +15,8 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const router = useRouter();
     const supabase = createClient();
@@ -46,7 +48,11 @@ export default function LoginPage() {
         });
 
         if (error) {
-            setErrorMsg(error.message);
+            if (error.message.includes("Invalid login credentials")) {
+                setErrorMsg("Incorrect email or password. Please try again or reset your password.");
+            } else {
+                setErrorMsg(error.message);
+            }
             setLoading(false);
             return;
         }
@@ -130,19 +136,40 @@ export default function LoginPage() {
                         <div className="space-y-2">
                             <div className="flex justify-between items-center">
                                 <Label className="text-xs text-text-secondary">Password</Label>
-                                <a href="#" className="text-[10px] text-text-secondary hover:text-volt transition-colors">Forgot password?</a>
+                                <Link href="/forgot-password" className="text-[10px] text-text-secondary hover:text-volt transition-colors">Forgot Password?</Link>
                             </div>
                             <div className="relative">
                                 <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
                                 <Input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 pr-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                     required
                                 />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-text-secondary/50 hover:text-text-secondary transition-colors"
+                                >
+                                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </button>
                             </div>
+                        </div>
+
+                        {/* Remember Me */}
+                        <div className="flex items-center gap-2">
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                checked={rememberMe}
+                                onChange={(e) => setRememberMe(e.target.checked)}
+                                className="h-4 w-4 rounded border-white/10 bg-deep-black text-volt focus:ring-volt/30"
+                            />
+                            <Label htmlFor="rememberMe" className="text-xs text-text-secondary cursor-pointer">
+                                Remember me for 30 days
+                            </Label>
                         </div>
                     </div>
 

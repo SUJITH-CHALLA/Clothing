@@ -55,10 +55,16 @@ export default function CheckoutPage() {
     }, [supabase.auth]);
 
     const handleApplyDiscount = () => {
+        if (!discountCode.trim()) {
+            toast.error("Please enter a discount code");
+            return;
+        }
+
         if (discountCode === "VOLT") {
             setDiscountApplied(500);
+            toast.success("Discount code VOLT applied successfully!");
         } else {
-            alert("Invalid discount code");
+            toast.error("Invalid discount code");
             setDiscountApplied(0);
         }
     };
@@ -188,8 +194,8 @@ export default function CheckoutPage() {
                                     <input required name="email" type="email" placeholder="you@example.com" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs text-text-secondary">Phone Number</label>
-                                    <input required name="phone" type="tel" placeholder="+91 98765 43210" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
+                                    <label className="text-xs text-text-secondary w-full text-left inline-block">Phone Number</label>
+                                    <input required name="phone" type="tel" pattern="[0-9+ ]*" minLength={10} placeholder="+91 98765 43210" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
                                 </div>
                             </div>
                         </section>
@@ -211,8 +217,8 @@ export default function CheckoutPage() {
                                     <input required name="city" type="text" placeholder="Mumbai" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-xs text-text-secondary">Postal Code</label>
-                                    <input required name="postalCode" type="text" placeholder="400001" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
+                                    <label className="text-xs text-text-secondary w-full text-left inline-block">Postal Code</label>
+                                    <input required name="postalCode" type="text" pattern="[0-9]*" minLength={4} maxLength={10} placeholder="400001" className="w-full rounded-xl border border-white/10 bg-surface/50 px-4 py-3 text-sm text-text-primary focus:border-volt/30 focus:outline-none" />
                                 </div>
                             </div>
                         </section>

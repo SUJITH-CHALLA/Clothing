@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 export type CartItem = {
     id: string;
@@ -109,10 +110,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             }
             return [...current, newItem];
         });
+        toast.success(`${newItem.name} added to cart`);
     };
 
     const removeItem = (id: string) => {
-        setItems((current) => current.filter((item) => item.id !== id));
+        setItems((current) => {
+            const itemToRemove = current.find(i => i.id === id);
+            if (itemToRemove) {
+                toast.success(`${itemToRemove.name} removed from cart`);
+            }
+            return current.filter((item) => item.id !== id);
+        });
     };
 
     const updateQuantity = (id: string, quantity: number) => {

@@ -7,17 +7,21 @@ import { ShoppingBag, Menu, X, Search, User, Heart } from "lucide-react";
 import { MagneticButton } from "@/components/premium/MagneticButton";
 import { cn } from "@/lib/utils";
 
+import { useCart } from "@/hooks/useCart";
+
 const navLinks = [
-    { label: "New Drops", href: "/#drops" },
-    { label: "Collections", href: "/#collections" },
-    { label: "Sale", href: "/#sale" },
+    { label: "New Drops", href: "/new-drops" },
+    { label: "Collections", href: "/collections" },
+    { label: "Sale", href: "/sale" },
 ];
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [cartCount, setCartCount] = useState(0);
     const [cartPop, setCartPop] = useState(false);
+
+    const { items, setIsOpen } = useCart();
+    const cartCount = items.reduce((total, item) => total + item.quantity, 0);
 
     useEffect(() => {
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -25,17 +29,14 @@ export function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Expose a global way to trigger cart pop animation
+    // Pop animation when cart count changes
     useEffect(() => {
-        const handler = (e: CustomEvent) => {
-            setCartCount((prev) => prev + (e.detail?.count || 1));
+        if (cartCount > 0) {
             setCartPop(true);
-            setTimeout(() => setCartPop(false), 400);
-        };
-        window.addEventListener("cart:add" as string, handler as EventListener);
-        return () =>
-            window.removeEventListener("cart:add" as string, handler as EventListener);
-    }, []);
+            const timer = setTimeout(() => setCartPop(false), 400);
+            return () => clearTimeout(timer);
+        }
+    }, [cartCount]);
 
     return (
         <>
@@ -104,7 +105,7 @@ export function Navbar() {
                         {/* Cart Button with Pop Animation */}
                         <MagneticButton strength={0.2}>
                             <button
-                                onClick={() => window.dispatchEvent(new CustomEvent('cart:toggle'))}
+                                onClick={() => setIsOpen(true)}
                                 className="relative rounded-full p-2 text-text-secondary transition-colors hover:text-text-primary"
                             >
                                 <motion.div

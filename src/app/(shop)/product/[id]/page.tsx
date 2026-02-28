@@ -85,7 +85,7 @@ export default function ProductDetailPage() {
             const { error } = await supabase
                 .from("wishlist")
                 .delete()
-                .eq("product_id", id)
+                .eq("product_id", product.id)
                 .eq("user_id", user.id);
 
             if (!error) {
@@ -95,7 +95,7 @@ export default function ProductDetailPage() {
         } else {
             const { error } = await supabase
                 .from("wishlist")
-                .insert([{ product_id: id, user_id: user.id }]);
+                .insert([{ product_id: product.id, user_id: user.id }]);
 
             if (!error) {
                 setIsWishlisted(true);
@@ -120,11 +120,13 @@ export default function ProductDetailPage() {
             window.dispatchEvent(
                 new CustomEvent("cart:add", {
                     detail: {
-                        id: product.name, // Using name as ID for demo to split by type
-                        name: `${product.name} (${selectedColor})`,
+                        id: `${product.id}-${selectedSize}-${selectedColor}`,
+                        name: `${product.name} (${selectedColor} - ${selectedSize})`,
                         price: product.price,
                         quantity: 1,
-                        size: selectedSize
+                        size: selectedSize,
+                        color: selectedColor,
+                        image: product.images?.[0]
                     },
                 })
             );
@@ -150,10 +152,10 @@ export default function ProductDetailPage() {
     }
 
     return (
-        <div className="mx-auto max-w-6xl px-4 pt-6 pb-12 md:pt-10 md:pb-20">
-            <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 lg:h-[calc(100vh-140px)]">
+        <div className="mx-auto max-w-[1400px] px-4 pt-4 md:pt-6 md:pb-12 h-auto lg:h-[calc(100vh-80px)] mb-32 lg:mb-12">
+            <div className="grid gap-8 lg:gap-12 lg:grid-cols-2 h-full items-center">
                 {/* Visuals / Gallery */}
-                <div className="relative flex flex-col gap-3 h-[60vh] lg:h-full">
+                <div className="relative flex flex-col gap-3 h-[60vh] lg:h-[80vh]">
                     <motion.div
                         className="group relative flex-1 w-full overflow-hidden rounded-2xl bg-surface border border-white/5"
                         initial={{ opacity: 0, y: 20 }}
@@ -223,15 +225,15 @@ export default function ProductDetailPage() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                    <div className="space-y-1 mb-6 border-b border-white/5 pb-6">
-                        <h1 className="font-heading text-4xl font-black uppercase tracking-tight text-text-primary break-words">
+                    <div className="space-y-1 mb-4 lg:mb-6 border-b border-white/5 pb-4 lg:pb-6">
+                        <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight text-text-primary break-words">
                             {product.name}
                         </h1>
                         <p className="text-xl font-bold text-text-secondary">₹{product.price?.toLocaleString('en-IN')}</p>
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-center space-y-8">
-                        <p className="leading-relaxed text-sm md:text-base text-text-secondary line-clamp-3">
+                    <div className="flex-1 flex flex-col justify-center space-y-6 lg:space-y-8">
+                        <p className="leading-relaxed text-sm lg:text-base text-text-secondary line-clamp-3">
                             {product.description || "A classified archive product. High grade construction, strictly conceptual design logic."}
                         </p>
 

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, Phone, ArrowRight, Loader2, User as UserIcon, Lock } from "lucide-react";
+import { Mail, Phone, ArrowRight, Loader2, User as UserIcon, Lock, Check } from "lucide-react";
 import { BlurIn } from "@/components/premium/BlurIn";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -18,7 +18,10 @@ export default function RegisterPage() {
         fullName: "",
         emailOrPhone: "",
         password: "",
+        confirmPassword: "",
     });
+
+    const [agreed, setAgreed] = useState(false);
 
     const [errorMsg, setErrorMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
@@ -46,6 +49,18 @@ export default function RegisterPage() {
         setLoading(true);
         setErrorMsg("");
         setSuccessMsg("");
+
+        if (formData.password !== formData.confirmPassword) {
+            setErrorMsg("Passwords do not match");
+            setLoading(false);
+            return;
+        }
+
+        if (!agreed) {
+            setErrorMsg("You must agree to the Terms & Privacy Policy");
+            setLoading(false);
+            return;
+        }
 
         const { data, error } = await supabase.auth.signUp({
             email: formData.emailOrPhone,
@@ -177,6 +192,50 @@ export default function RegisterPage() {
                                     minLength={8}
                                 />
                             </div>
+                            {/* Password Strength basic indicator */}
+                            {formData.password.length > 0 && (
+                                <div className="flex gap-1 mt-2">
+                                    <div className={`h-1 flex-1 rounded-full ${formData.password.length > 0 ? "bg-red-500" : "bg-white/10"}`} />
+                                    <div className={`h-1 flex-1 rounded-full ${formData.password.length > 5 ? "bg-yellow-500" : "bg-white/10"}`} />
+                                    <div className={`h-1 flex-1 rounded-full ${formData.password.length > 8 && /[A-Z]/.test(formData.password) ? "bg-volt" : "bg-white/10"}`} />
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Confirm Password */}
+                        <div className="space-y-2">
+                            <Label className="text-xs text-text-secondary">Confirm Password</Label>
+                            <div className="relative">
+                                <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
+                                <Input
+                                    type="password"
+                                    placeholder="Confirm your password"
+                                    value={formData.confirmPassword}
+                                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    required
+                                    minLength={8}
+                                />
+                                {formData.confirmPassword && formData.password === formData.confirmPassword && (
+                                    <Check className="absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-volt" />
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Terms Checkbox */}
+                        <div className="flex items-start gap-3 pt-2">
+                            <div className="flex items-center h-5">
+                                <input
+                                    id="terms"
+                                    type="checkbox"
+                                    checked={agreed}
+                                    onChange={(e) => setAgreed(e.target.checked)}
+                                    className="h-4 w-4 rounded border-white/10 bg-deep-black text-volt focus:ring-volt/30 cursor-pointer"
+                                />
+                            </div>
+                            <Label htmlFor="terms" className="text-xs text-text-secondary leading-snug cursor-pointer">
+                                I agree to the <Link href="/terms" className="text-volt hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-volt hover:underline">Privacy Policy</Link>.
+                            </Label>
                         </div>
                     </div>
 
@@ -231,15 +290,13 @@ export default function RegisterPage() {
                         Google
                     </button>
                 </motion.form>
-            </div>
-
-            {/* Footer */}
+            </div >
             <p className="text-center text-xs text-text-secondary">
                 Already have an account?{" "}
                 <Link href="/login" className="text-volt hover:underline">
                     Sign in
                 </Link>
             </p>
-        </BlurIn>
+        </BlurIn >
     );
 }

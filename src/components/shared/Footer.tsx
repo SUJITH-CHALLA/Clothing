@@ -4,19 +4,19 @@ import { Instagram, Twitter, ArrowUpRight } from "lucide-react";
 
 const footerLinks = {
     Shop: [
-        { label: "New Drops", href: "/#drops" },
-        { label: "Collections", href: "/#collections" },
-        { label: "Sale", href: "/#sale" },
+        { label: "New Drops", href: "/new-drops" },
+        { label: "Collections", href: "/collections" },
+        { label: "Sale", href: "/sale" },
     ],
     Help: [
-        { label: "Track Order", href: "/track" },
-        { label: "Returns", href: "/returns" },
-        { label: "Contact", href: "/contact" },
+        { label: "Track Order", href: "/#" },
+        { label: "Returns", href: "/#" },
+        { label: "Contact", href: "/#" },
     ],
     Legal: [
-        { label: "Privacy", href: "/privacy" },
-        { label: "Terms", href: "/terms" },
-        { label: "Refunds", href: "/refunds" },
+        { label: "Privacy", href: "/#" },
+        { label: "Terms", href: "/#" },
+        { label: "Refunds", href: "/#" },
     ],
 };
 
