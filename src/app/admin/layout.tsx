@@ -50,7 +50,8 @@ export default function AdminLayout({
                 let role = profile?.role || 'user';
 
                 // Hardcoded admin email fallback
-                const isAdminEmail = session.user.email === 'admin@clothify.shop';
+                const adminEmails = ['admin@clothify.shop', 'superadmin@clothify.shop'];
+                const isAdminEmail = adminEmails.includes(session.user.email || '');
                 if (isAdminEmail) {
                     role = 'admin';
                 }
