@@ -57,11 +57,11 @@ export default function AdminLayout({
 
                 setUserRole(role);
 
-                // Protect admin routes: Redirect if not admin  (TEMPORARILY DISABLED FOR BOT INSPECTION)
-                // if (role !== 'admin') {
-                //     toast.error("Unauthorized access. Admin privileges required.");
-                //     router.push("/");
-                // }
+                // Protect admin routes: Redirect if not admin
+                if (role !== 'admin') {
+                    toast.error("Unauthorized access. Admin privileges required.");
+                    router.push("/");
+                }
             } else {
                 // Not logged in
                 router.push("/login");

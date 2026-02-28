@@ -32,37 +32,37 @@ export async function updateSession(request: NextRequest) {
 
     const isAuthenticated = !!user;
 
-    // Protect admin routes (TEMPORARILY DISABLED FOR BOT INSPECTION)
-    // if (request.nextUrl.pathname.startsWith("/admin")) {
-    //     if (!isAuthenticated) {
-    //         const url = request.nextUrl.clone();
-    //         url.pathname = "/login";
-    //         return NextResponse.redirect(url);
-    //     }
-    //
-    //     // If a real user is logged in, but not an admin (mocked check for now)
-    //     if (user && user.email !== "admin@clothify.shop") {
-    //         const url = request.nextUrl.clone();
-    //         url.pathname = "/";
-    //         return NextResponse.redirect(url);
-    //     }
-    // }
+    // Protect admin routes
+    if (request.nextUrl.pathname.startsWith("/admin")) {
+        if (!isAuthenticated) {
+            const url = request.nextUrl.clone();
+            url.pathname = "/login";
+            return NextResponse.redirect(url);
+        }
 
-    // Protect profile routes (TEMPORARILY DISABLED FOR BOT INSPECTION)
-    // if (request.nextUrl.pathname.startsWith("/profile")) {
-    //     if (!isAuthenticated) {
-    //         const url = request.nextUrl.clone();
-    //         url.pathname = "/login";
-    //         return NextResponse.redirect(url);
-    //     }
-    // }
+        // If a real user is logged in, but not an admin (mocked check for now)
+        if (user && user.email !== "admin@clothify.shop") {
+            const url = request.nextUrl.clone();
+            url.pathname = "/";
+            return NextResponse.redirect(url);
+        }
+    }
 
-    // Prevent authenticated users from seeing login/register (TEMPORARILY DISABLED FOR BOT INSPECTION)
-    // if (isAuthenticated && (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register'))) {
-    //     const url = request.nextUrl.clone();
-    //     url.pathname = "/";
-    //     return NextResponse.redirect(url);
-    // }
+    // Protect profile routes
+    if (request.nextUrl.pathname.startsWith("/profile")) {
+        if (!isAuthenticated) {
+            const url = request.nextUrl.clone();
+            url.pathname = "/login";
+            return NextResponse.redirect(url);
+        }
+    }
+
+    // Prevent authenticated users from seeing login/register
+    if (isAuthenticated && (request.nextUrl.pathname.startsWith('/login') || request.nextUrl.pathname.startsWith('/register'))) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/";
+        return NextResponse.redirect(url);
+    }
 
     return supabaseResponse;
 }
