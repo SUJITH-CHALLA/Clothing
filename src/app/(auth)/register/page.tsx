@@ -95,27 +95,27 @@ export default function RegisterPage() {
     };
 
     return (
-        <BlurIn className="space-y-8">
+        <BlurIn className="space-y-4 w-full max-w-[400px] mx-auto">
             {/* Logo */}
             <div className="text-center">
                 <Link href="/">
-                    <span className="font-heading text-3xl font-bold">
+                    <span className="font-heading text-2xl font-bold">
                         CLOTH<span className="text-volt">IFY</span>
                     </span>
                 </Link>
-                <p className="mt-3 text-sm text-text-secondary">
+                <p className="mt-1 text-xs text-text-secondary">
                     Join the culture. Get exclusive access to drops.
                 </p>
             </div>
 
             {/* Card */}
-            <div className="rounded-2xl border border-white/5 bg-surface/50 p-8 backdrop-blur-xl">
+            <div className="rounded-2xl border border-white/5 bg-surface/50 p-5 md:p-6 backdrop-blur-xl">
                 <motion.form
                     key="details"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     onSubmit={handleRegister}
-                    className="space-y-6"
+                    className="space-y-4"
                 >
                     {/* Mode Toggle */}
                     <div className="flex rounded-lg bg-deep-black p-1">
@@ -143,26 +143,26 @@ export default function RegisterPage() {
                         </button>
                     </div>
 
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                         {/* Full Name */}
-                        <div className="space-y-2">
-                            <Label className="text-xs text-text-secondary">Full Name</Label>
+                        <div className="space-y-1">
+                            <Label className="text-[11px] text-text-secondary">Full Name</Label>
                             <div className="relative">
-                                <UserIcon className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
+                                <UserIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
                                 <Input
                                     type="text"
                                     placeholder="John Doe"
                                     value={formData.fullName}
                                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    className="h-10 rounded-xl border-white/10 bg-deep-black pl-10 text-sm text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                     required
                                 />
                             </div>
                         </div>
 
                         {/* Email / Phone */}
-                        <div className="space-y-2">
-                            <Label className="text-xs text-text-secondary">
+                        <div className="space-y-1">
+                            <Label className="text-[11px] text-text-secondary">
                                 {mode === "email" ? "Email address" : "Phone number"}
                             </Label>
                             <Input
@@ -172,22 +172,22 @@ export default function RegisterPage() {
                                 }
                                 value={formData.emailOrPhone}
                                 onChange={(e) => setFormData({ ...formData, emailOrPhone: e.target.value })}
-                                className="h-12 rounded-xl border-white/10 bg-deep-black text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                className="h-10 text-sm rounded-xl border-white/10 bg-deep-black text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                 required
                             />
                         </div>
 
                         {/* Password */}
-                        <div className="space-y-2">
-                            <Label className="text-xs text-text-secondary">Password</Label>
+                        <div className="space-y-1">
+                            <Label className="text-[11px] text-text-secondary">Password</Label>
                             <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
+                                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
                                 <Input
                                     type="password"
                                     placeholder="Create a password"
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    className="h-10 text-sm rounded-xl border-white/10 bg-deep-black pl-10 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                     required
                                     minLength={8}
                                 />
@@ -203,16 +203,16 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Confirm Password */}
-                        <div className="space-y-2">
-                            <Label className="text-xs text-text-secondary">Confirm Password</Label>
+                        <div className="space-y-1">
+                            <Label className="text-[11px] text-text-secondary">Confirm Password</Label>
                             <div className="relative">
-                                <Lock className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
+                                <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text-secondary/50" />
                                 <Input
                                     type="password"
                                     placeholder="Confirm your password"
                                     value={formData.confirmPassword}
                                     onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    className="h-10 text-sm rounded-xl border-white/10 bg-deep-black pl-10 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                     required
                                     minLength={8}
                                 />
@@ -223,18 +223,18 @@ export default function RegisterPage() {
                         </div>
 
                         {/* Terms Checkbox */}
-                        <div className="flex items-start gap-3 pt-2">
-                            <div className="flex items-center h-5">
+                        <div className="flex items-start gap-3 pt-1">
+                            <div className="flex items-center h-4">
                                 <input
                                     id="terms"
                                     type="checkbox"
                                     checked={agreed}
                                     onChange={(e) => setAgreed(e.target.checked)}
-                                    className="h-4 w-4 rounded border-white/10 bg-deep-black text-volt focus:ring-volt/30 cursor-pointer"
+                                    className="h-3.5 w-3.5 rounded border-white/10 bg-deep-black text-volt focus:ring-volt/30 cursor-pointer"
                                 />
                             </div>
-                            <Label htmlFor="terms" className="text-xs text-text-secondary leading-snug cursor-pointer">
-                                I agree to the <Link href="/terms" className="text-volt hover:underline">Terms of Service</Link> and <Link href="/privacy" className="text-volt hover:underline">Privacy Policy</Link>.
+                            <Label htmlFor="terms" className="text-[10px] text-text-secondary leading-snug cursor-pointer">
+                                I agree to the <Link href="/terms" className="text-volt hover:underline">Terms</Link> and <Link href="/privacy" className="text-volt hover:underline">Privacy</Link>.
                             </Label>
                         </div>
                     </div>
@@ -243,7 +243,7 @@ export default function RegisterPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full group mt-6 relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-volt py-4 font-semibold text-deep-black transition-all hover:bg-volt/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
+                        className="w-full group mt-4 relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-volt py-3 text-sm font-semibold text-deep-black transition-all hover:bg-volt/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
                     >
                         {loading ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -279,7 +279,7 @@ export default function RegisterPage() {
                         type="button"
                         onClick={handleGoogleLogin}
                         disabled={loading}
-                        className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-deep-black py-4 font-medium text-text-primary transition-colors hover:bg-white/5 disabled:opacity-50"
+                        className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-deep-black py-3 text-sm font-medium text-text-primary transition-colors hover:bg-white/5 disabled:opacity-50"
                     >
                         <svg className="h-5 w-5" viewBox="0 0 24 24">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />

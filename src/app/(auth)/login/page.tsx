@@ -66,27 +66,27 @@ export default function LoginPage() {
     };
 
     return (
-        <BlurIn className="space-y-8">
+        <BlurIn className="space-y-5">
             {/* Logo */}
             <div className="text-center">
                 <Link href="/">
-                    <span className="font-heading text-3xl font-bold">
+                    <span className="font-heading text-2xl font-bold">
                         CLOTH<span className="text-volt">IFY</span>
                     </span>
                 </Link>
-                <p className="mt-3 text-sm text-text-secondary">
+                <p className="mt-1 text-xs text-text-secondary">
                     Welcome back. Sign in to your account.
                 </p>
             </div>
 
             {/* Card */}
-            <div className="rounded-2xl border border-white/5 bg-surface/50 p-8 backdrop-blur-xl">
+            <div className="rounded-2xl border border-white/5 bg-surface/50 p-6 backdrop-blur-xl">
                 <motion.form
                     key="login"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     onSubmit={handleLogin}
-                    className="space-y-6"
+                    className="space-y-5"
                 >
                     {/* Mode Toggle */}
                     <div className="flex rounded-lg bg-deep-black p-1">
@@ -127,7 +127,7 @@ export default function LoginPage() {
                                 }
                                 value={emailOrPhone}
                                 onChange={(e) => setEmailOrPhone(e.target.value)}
-                                className="h-12 rounded-xl border-white/10 bg-deep-black text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                className="h-10 rounded-xl border-white/10 bg-deep-black text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                 required
                             />
                         </div>
@@ -145,7 +145,7 @@ export default function LoginPage() {
                                     placeholder="Enter your password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="h-12 rounded-xl border-white/10 bg-deep-black pl-11 pr-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
+                                    className="h-10 rounded-xl border-white/10 bg-deep-black pl-11 pr-11 text-text-primary placeholder:text-text-secondary/40 focus:border-volt/30"
                                     required
                                 />
                                 <button
@@ -177,7 +177,7 @@ export default function LoginPage() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full group mt-6 relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-volt py-4 font-semibold text-deep-black transition-all hover:bg-volt/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
+                        className="w-full group mt-5 relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-volt py-3 font-semibold text-deep-black transition-all hover:bg-volt/90 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
                     >
                         {loading ? (
                             <Loader2 className="h-4 w-4 animate-spin" />
@@ -207,7 +207,7 @@ export default function LoginPage() {
                         type="button"
                         onClick={handleGoogleLogin}
                         disabled={loading}
-                        className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-deep-black py-4 font-medium text-text-primary transition-colors hover:bg-white/5 disabled:opacity-50"
+                        className="flex w-full items-center justify-center gap-3 rounded-xl border border-white/10 bg-deep-black py-3 font-medium text-text-primary transition-colors hover:bg-white/5 disabled:opacity-50"
                     >
                         <svg className="h-5 w-5" viewBox="0 0 24 24">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
