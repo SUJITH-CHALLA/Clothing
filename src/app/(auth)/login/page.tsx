@@ -58,7 +58,8 @@ export default function LoginPage() {
         }
 
         // Check if admin to redirect to dashboard, or else shop
-        if (emailOrPhone === "admin@clothify.shop") {
+        const adminEmails = ["admin@clothify.shop", "superadmin@clothify.shop"];
+        if (adminEmails.includes(emailOrPhone)) {
             router.push("/admin");
         } else {
             router.push("/");

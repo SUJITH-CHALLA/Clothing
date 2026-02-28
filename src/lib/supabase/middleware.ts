@@ -41,7 +41,8 @@ export async function updateSession(request: NextRequest) {
         }
 
         // If a real user is logged in, but not an admin (mocked check for now)
-        if (user && user.email !== "admin@clothify.shop") {
+        const adminEmails = ["admin@clothify.shop", "superadmin@clothify.shop"];
+        if (user && user.email && !adminEmails.includes(user.email)) {
             const url = request.nextUrl.clone();
             url.pathname = "/";
             return NextResponse.redirect(url);
